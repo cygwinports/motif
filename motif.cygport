@@ -1,0 +1,46 @@
+NAME="motif"
+VERSION=2.3.4
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="Motif toolkit"
+DESCRIPTION="Motif is a freely available source code distribution for the
+Motif user interface component toolkit. Motif is built on top of the standard
+X Toolkit (Xt) and X11 libraries."
+HOMEPAGE="http://motif.ics.com/"
+SRC_URI="mirror://sourceforge/motif/motif-${VERSION}-src.tgz"
+PATCH_URI="
+	2.3.4-as-needed.patch
+	2.3.4-no-undefined.patch
+	2.3.4-cygwin.patch
+"
+
+PKG_NAMES="motif libXm4 libXm-devel"
+motif_SUMMARY="Motif Window Manager (mwm) and tools"
+motif_CONTENTS="--exclude=uil* etc/ usr/bin/*.exe usr/share/doc/ usr/share/man/man[14]/"
+libXm4_SUMMARY="${SUMMARY} (runtime)"
+libXm4_CONTENTS="usr/bin/*-4.dll"
+libXm_devel_SUMMARY="${SUMMARY} (development)"
+libXm_devel_REQUIRES="libX11-devel libXft-devel libXt-devel"
+libXm_devel_CONTENTS="usr/bin/uil.exe usr/include/ usr/lib/
+                      usr/share/man/man1/uil.* usr/share/man/man[35]/"
+
+CFLAGS+=" -fno-strict-aliasing"
+CYGCONF_ARGS="
+	--enable-jpeg
+	--enable-png
+	--disable-printing
+	--enable-utf8
+	--enable-xft
+	YACC=byacc
+"
+MAKEOPTS+=" -j1 MWMRCDIR=/etc/X11"
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	# do not ship demos
+	rm -fr ${D}/usr/share/{Xm,man/manm}/
+}
+
+KEEP_LA_FILES="none"

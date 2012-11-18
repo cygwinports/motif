@@ -1,0 +1,18 @@
+--- origsrc/motif-2.3.4/demos/programs/Exm/simple_app/Makefile.am	2012-10-22 09:50:38.000000000 -0500
++++ src/motif-2.3.4/demos/programs/Exm/simple_app/Makefile.am	2012-10-24 17:37:35.672699500 -0500
+@@ -14,5 +14,5 @@ INCLUDES = -I$(srcdir)/../../../../lib \
+            -I$(srcdir)/../../../lib \
+            -I$(top_builddir)/lib \
+            ${X_CFLAGS} 
+-LDADD = ../../../../lib/Xm/libXm.la \
+-        ../../../lib/Exm/libExm.a
++LDADD = ../../../lib/Exm/libExm.a \
++        ../../../../lib/Xm/libXm.la
+--- origsrc/motif-2.3.4/demos/programs/workspace/Makefile.am	2012-10-22 09:50:38.000000000 -0500
++++ src/motif-2.3.4/demos/programs/workspace/Makefile.am	2012-10-24 17:38:57.966826200 -0500
+@@ -11,4 +11,4 @@ wsm_SOURCES = client_win.c command_ui.c
+               wsm.h wsmSend.h wsmStruct.h wsm_ui.h xrmLib.h
+ data_DATA = $(wsm_SOURCES) $(EXTRA_DIST)
+ INCLUDES = -I$(srcdir)/../../../lib -I$(srcdir)/../../lib -I$(top_builddir)/lib ${X_CFLAGS} 
+-LDADD = ../../../lib/Xm/libXm.la -L../../lib/Wsm -lWsm
++LDADD = ../../lib/Wsm/libWsm.a ../../../lib/Xm/libXm.la

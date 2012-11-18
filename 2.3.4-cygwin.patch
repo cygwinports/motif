@@ -1,0 +1,52 @@
+--- origsrc/motif-2.3.4/lib/Xm/VendorS.c	2012-10-22 09:50:37.000000000 -0500
++++ src/motif-2.3.4/lib/Xm/VendorS.c	2012-11-18 03:03:10.279059000 -0600
+@@ -515,6 +515,24 @@ VendorShellClassRec vendorShellClassRec
+ externaldef(vendorshellwidgetclass) WidgetClass 
+   vendorShellWidgetClass = (WidgetClass) (&vendorShellClassRec);
+ 
++#ifdef __CYGWIN__
++int __stdcall
++DllMain(unsigned long mod_handle, unsigned long flag, void *routine)
++{
++    switch (flag)
++    {
++        case 1: /* DLL_PROCESS_ATTACH - process attach */
++            transientShellWidgetClass->core_class.superclass =
++                (WidgetClass)&vendorShellClassRec;
++            topLevelShellWidgetClass->core_class.superclass =
++                (WidgetClass)&vendorShellClassRec;
++            break;
++        case 0: /* DLL_PROCESS_DETACH - process detach */
++            break;
++    }
++    return 1;
++}
++#endif
+ 
+ 
+ 
+--- origsrc/motif-2.3.4/lib/Xm/Xmfuncs.h	2012-10-22 09:50:38.000000000 -0500
++++ src/motif-2.3.4/lib/Xm/Xmfuncs.h	2012-10-24 17:19:50.731504000 -0500
+@@ -42,9 +42,11 @@ int bcmp();
+ #if (__STDC__ && !defined(X_NOT_STDC_ENV) && !defined(sun) && !defined(macII) && !defined(apollo)) || defined(SVR4) || defined(hpux) || defined(_IBMR2) || defined(_SEQUENT_)
+ #include <string.h>
+ #define _XFUNCS_H_INCLUDED_STRING_H
++#ifndef __CYGWIN__
+ #define bcopy(b1,b2,len) memmove(b2, b1, (size_t)(len))
+ #define bzero(b,len) memset(b, 0, (size_t)(len))
+ #define bcmp(b1,b2,len) memcmp(b1, b2, (size_t)(len))
++#endif
+ #else
+ #ifdef sgi
+ #include <bstring.h>
+@@ -70,8 +72,10 @@ int bcmp();
+ #ifndef _XFUNCS_H_INCLUDED_STRING_H
+ #include <string.h>
+ #endif
++#ifndef __CYGWIN__
+ #undef bzero
+ #define bzero(b,len) memset(b,0,len)
++#endif
+ #else /* else X_NOT_STDC_ENV or SunOS 4 */
+ #if defined(SYSV) || defined(luna) || defined(sun) || defined(__sxg__)
+ #include <memory.h>

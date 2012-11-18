@@ -1,0 +1,33 @@
+--- origsrc/motif-2.3.4/clients/uil/Makefile.am	2012-10-22 09:50:39.000000000 -0500
++++ src/motif-2.3.4/clients/uil/Makefile.am	2012-10-24 16:09:48.946521600 -0500
+@@ -6,7 +6,7 @@ EXTRA_DIST = Uil.msg
+ #
+ bin_PROGRAMS = uil
+ 
+-libUil_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@
++libUil_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@ -no-undefined
+ 
+ UilParser.lo: UilParser.c
+ 	$(LTCOMPILE) -DCALLABLE -c UilParser.c
+--- origsrc/motif-2.3.4/lib/Mrm/Makefile.am	2012-10-22 09:50:34.000000000 -0500
++++ src/motif-2.3.4/lib/Mrm/Makefile.am	2012-10-24 16:08:57.939094800 -0500
+@@ -8,7 +8,7 @@ mrmdir = $(includedir)/Mrm
+ 
+ libMrm_la_LIBADD = ../Xm/libXm.la ${X_LIBS} -lXt ${X_PRE_LIBS} -lX11 ${X_EXTRA_LIBS}
+ 
+-libMrm_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@
++libMrm_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@ -no-undefined
+ 
+ lib_LTLIBRARIES = libMrm.la
+ 
+--- origsrc/motif-2.3.4/lib/Xm/Makefile.am	2012-10-22 09:50:34.000000000 -0500
++++ src/motif-2.3.4/lib/Xm/Makefile.am	2012-10-24 16:09:23.555311200 -0500
+@@ -11,7 +11,7 @@ INCLUDES = -I.. -I$(srcdir)/.. -DXMBINDD
+            ${X_CFLAGS}
+ xmdir = $(includedir)/Xm
+ 
+-libXm_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@
++libXm_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@ -no-undefined
+ 
+ lib_LTLIBRARIES = libXm.la
+ 
