@@ -24,6 +24,7 @@ libXm_devel_REQUIRES="libX11-devel libXft-devel libXt-devel"
 libXm_devel_CONTENTS="usr/bin/uil.exe usr/include/ usr/lib/
                       usr/share/man/man1/uil.* usr/share/man/man[35]/"
 
+WANT_AUTOMAKE=1.12
 CFLAGS+=" -fno-strict-aliasing"
 CYGCONF_ARGS="
 	--enable-jpeg
