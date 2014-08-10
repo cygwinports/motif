@@ -1,6 +1,6 @@
 NAME="motif"
 VERSION=2.3.4
-RELEASE=1
+RELEASE=2
 CATEGORY="X11"
 SUMMARY="Motif toolkit"
 DESCRIPTION="Motif is a freely available source code distribution for the
@@ -17,8 +17,10 @@ PATCH_URI="
 PKG_NAMES="motif libXm4 libXm-devel"
 motif_SUMMARY="Motif Window Manager (mwm) and tools"
 motif_CONTENTS="--exclude=uil* etc/ usr/bin/*.exe usr/share/doc/ usr/share/man/man[14]/"
+libXm4_CONTENTS="Libs"
 libXm4_SUMMARY="${SUMMARY} (runtime)"
 libXm4_CONTENTS="usr/bin/*-4.dll"
+libXm_devel_CONTENTS="Libs"
 libXm_devel_SUMMARY="${SUMMARY} (development)"
 libXm_devel_REQUIRES="libX11-devel libXft-devel libXt-devel"
 libXm_devel_CONTENTS="usr/bin/uil.exe usr/include/ usr/lib/
