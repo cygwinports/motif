@@ -1,6 +1,6 @@
 NAME="motif"
 VERSION=2.3.4
-RELEASE=2
+RELEASE=3
 CATEGORY="X11"
 SUMMARY="Motif toolkit"
 DESCRIPTION="Motif is a freely available source code distribution for the
@@ -9,6 +9,11 @@ X Toolkit (Xt) and X11 libraries."
 HOMEPAGE="http://motif.ics.com/"
 SRC_URI="mirror://sourceforge/motif/motif-${VERSION}-src.tgz"
 PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/motif.git/plain/motif-2.3.4-no_demos.patch
+	http://pkgs.fedoraproject.org/cgit/motif.git/plain/openMotif-2.2.3-uil_lib.patch
+	http://pkgs.fedoraproject.org/cgit/motif.git/plain/openMotif-2.3.0-rgbtxt.patch
+	http://pkgs.fedoraproject.org/cgit/motif.git/plain/motif-2.3.4-mwmrc_dir.patch
+	http://pkgs.fedoraproject.org/cgit/motif.git/plain/motif-2.3.4-bindings.patch
 	2.3.4-as-needed.patch
 	2.3.4-no-undefined.patch
 	2.3.4-cygwin.patch
@@ -16,9 +21,10 @@ PATCH_URI="
 
 PKG_NAMES="motif libXm4 libXm-devel"
 motif_SUMMARY="Motif Window Manager (mwm) and tools"
-motif_CONTENTS="--exclude=uil* etc/ usr/bin/*.exe usr/share/doc/ usr/share/man/man[14]/"
+motif_CONTENTS="--exclude=uil* etc/ usr/bin/*.exe usr/share/X11/ usr/share/doc/ usr/share/man/man[14]/"
 libXm4_CONTENTS="Libs"
 libXm4_SUMMARY="${SUMMARY} (runtime)"
+libXm4_REQUIRES="rgb xbitmaps"
 libXm4_CONTENTS="usr/bin/*-4.dll"
 libXm_devel_CONTENTS="Libs"
 libXm_devel_SUMMARY="${SUMMARY} (development)"
@@ -36,14 +42,15 @@ CYGCONF_ARGS="
 	--enable-xft
 	YACC=byacc
 "
-MAKEOPTS+=" -j1 MWMRCDIR=/etc/X11"
+MAKEOPTS+=" -j1"
 
 src_install() {
 	cd ${B}
 	cyginstall
 
-	# do not ship demos
-	rm -fr ${D}/usr/share/{Xm,man/manm}/
+	echo "/usr/bin/xmbind" > ${T}/xmbind.sh
+	exeinto /etc/X11/xinit/xinitrc.d
+	doexe ${T}/xmbind.sh
 }
 
 KEEP_LA_FILES="none"
