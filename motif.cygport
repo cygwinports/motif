@@ -1,13 +1,13 @@
 NAME="motif"
-VERSION=2.3.4
-RELEASE=3
+VERSION=2.3.6
+RELEASE=1
 CATEGORY="X11"
 SUMMARY="Motif toolkit"
 DESCRIPTION="Motif is a freely available source code distribution for the
 Motif user interface component toolkit. Motif is built on top of the standard
 X Toolkit (Xt) and X11 libraries."
 HOMEPAGE="http://motif.ics.com/"
-SRC_URI="mirror://sourceforge/motif/motif-${VERSION}-src.tgz"
+SRC_URI="mirror://sourceforge/motif/motif-${VERSION}.tar.gz"
 PATCH_URI="
 	http://pkgs.fedoraproject.org/cgit/motif.git/plain/motif-2.3.4-no_demos.patch
 	http://pkgs.fedoraproject.org/cgit/motif.git/plain/openMotif-2.2.3-uil_lib.patch
@@ -17,6 +17,7 @@ PATCH_URI="
 	2.3.4-as-needed.patch
 	2.3.4-no-undefined.patch
 	2.3.4-cygwin.patch
+	2.3.6-system-libXpm.patch
 "
 
 PKG_NAMES="motif libXm4 libXm-devel"
@@ -28,11 +29,12 @@ libXm4_REQUIRES="rgb xbitmaps"
 libXm4_CONTENTS="usr/bin/*-4.dll"
 libXm_devel_CONTENTS="Libs"
 libXm_devel_SUMMARY="${SUMMARY} (development)"
-libXm_devel_REQUIRES="libX11-devel libXft-devel libXt-devel"
+libXm_devel_REQUIRES="libX11-devel libXft-devel libXpm-devel libXt-devel"
 libXm_devel_CONTENTS="usr/bin/uil.exe usr/include/ usr/lib/
                       usr/share/man/man1/uil.* usr/share/man/man[35]/"
 
-WANT_AUTOMAKE=1.12
+DIFF_EXCLUDES="Xm.h"
+
 CFLAGS+=" -fno-strict-aliasing"
 CYGCONF_ARGS="
 	--enable-jpeg

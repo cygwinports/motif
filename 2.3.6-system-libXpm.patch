@@ -1,0 +1,98 @@
+--- origsrc/motif-2.3.6/lib/Xm/Makefile.am	2016-11-06 15:13:32.864329600 -0600
++++ src/motif-2.3.6/lib/Xm/Makefile.am	2016-11-06 15:57:39.309571800 -0600
+@@ -71,7 +71,7 @@ else
+ PRINTS_SRC =
+ endif
+ 
+-libXm_la_LIBADD = ${X_LIBS} ${X_XMU} -lXt -lXext ${LIB_XP} -lX11 ${X_EXTRA_LIBS}
++libXm_la_LIBADD = ${X_LIBS} ${X_XMU} -lXt -lXext ${LIB_XP} -lXpm -lX11 ${X_EXTRA_LIBS}
+ 
+ noinst_HEADERS = BaseClassI.h \
+ BitmapsI.h \
+@@ -270,7 +269,7 @@ NEW_WID_SRCS =         IconH.c        Co
+         Notebook.c     ComboBox.c     GrabShell.c     SpinB.c  \
+         SSpinB.c       TxtPropCv.c    XmStringSeg.c   TranslNew.c
+ 
+-libXm_la_SOURCES = $(SRCS1) $(SRCS2) $(OBSO_SRCS) $(XPM_SRCS) $(NEW_WID_SRCS) $(SLIDE_SRCS) \
++libXm_la_SOURCES = $(SRCS1) $(SRCS2) $(OBSO_SRCS) $(NEW_WID_SRCS) $(SLIDE_SRCS) \
+         $(TIP_SRCS) $(EDITRES_SRCS) $(EXTRA_SRCS) $(JPEG_SRCS) $(PNG_SRCS)
+ 
+ EXTRA_libXm_la_SOURCES = $(SLIDE_SRCS) $(TIP_SRCS)
+--- origsrc/motif-2.3.6/lib/Xm/XpmP.h	2016-06-10 17:24:44.000000000 -0500
++++ src/motif-2.3.6/lib/Xm/XpmP.h	2016-11-06 16:16:06.513806000 -0600
+@@ -26,40 +26,41 @@
+ 
+ /* Xpm external symbols are prefixed with Xme */
+ 
+-#define XpmCreatePixmapFromData XmeXpmCreatePixmapFromData
+-#define XpmCreateDataFromPixmap XmeXpmCreateDataFromPixmap
+-#define XpmReadFileToPixmap XmeXpmReadFileToPixmap
+-#define XpmWriteFileFromPixmap XmeXpmWriteFileFromPixmap
+-#define XpmCreateImageFromData XmeXpmCreateImageFromData
+-#define XpmCreateDataFromImage XmeXpmCreateDataFromImage
+-#define XpmReadFileToImage XmeXpmReadFileToImage
+-#define XpmWriteFileFromImage XmeXpmWriteFileFromImage
+-#define XpmCreateImageFromBuffer XmeXpmCreateImageFromBuffer
+-#define XpmCreatePixmapFromBuffer XmeXpmCreatePixmapFromBuffer
+-#define XpmCreateBufferFromImage XmeXpmCreateBufferFromImage
+-#define XpmCreateBufferFromPixmap XmeXpmCreateBufferFromPixmap
+-#define XpmReadFileToBuffer XmeXpmReadFileToBuffer
+-#define XpmWriteFileFromBuffer XmeXpmWriteFileFromBuffer
+-#define XpmReadFileToData XmeXpmReadFileToData
+-#define XpmWriteFileFromData XmeXpmWriteFileFromData
+-#define XpmAttributesSize XmeXpmAttributesSize
+-#define XpmFreeAttributes XmeXpmFreeAttributes
+-#define XpmFreeExtensions XmeXpmFreeExtensions
+-#define XpmFreeXpmImage XmeXpmFreeXpmImage
+-#define XpmFreeXpmInfo XmeXpmFreeXpmInfo
+-#define XpmGetErrorString XmeXpmGetErrorString
+-#define XpmLibraryVersion XmeXpmLibraryVersion
+-#define XpmReadFileToXpmImage XmeXpmReadFileToXpmImage
+-#define XpmWriteFileFromXpmImage XmeXpmWriteFileFromXpmImage
+-#define XpmCreatePixmapFromXpmImage XmeXpmCreatePixmapFromXpmImage
+-#define XpmCreateImageFromXpmImage XmeXpmCreateImageFromXpmImage
+-#define XpmCreateXpmImageFromImage XmeXpmCreateXpmImageFromImage
+-#define XpmCreateXpmImageFromPixmap XmeXpmCreateXpmImageFromPixmap
+-#define XpmCreateDataFromXpmImage XmeXpmCreateDataFromXpmImage
+-#define XpmCreateXpmImageFromData XmeXpmCreateXpmImageFromData
+-#define XpmCreateXpmImageFromBuffer XmeXpmCreateXpmImageFromBuffer
+-#define XpmCreateBufferFromXpmImage XmeXpmCreateBufferFromXpmImage
+-#define XpmFree XmeXpmFree
++#include <X11/xpm.h>
++#define XmeXpmCreatePixmapFromData XpmCreatePixmapFromData
++#define XmeXpmCreateDataFromPixmap XpmCreateDataFromPixmap
++#define XmeXpmReadFileToPixmap XpmReadFileToPixmap
++#define XmeXpmWriteFileFromPixmap XpmWriteFileFromPixmap
++#define XmeXpmCreateImageFromData XpmCreateImageFromData
++#define XmeXpmCreateDataFromImage XpmCreateDataFromImage
++#define XmeXpmReadFileToImage XpmReadFileToImage
++#define XmeXpmWriteFileFromImage XpmWriteFileFromImage
++#define XmeXpmCreateImageFromBuffer XpmCreateImageFromBuffer
++#define XmeXpmCreatePixmapFromBuffer XpmCreatePixmapFromBuffer
++#define XmeXpmCreateBufferFromImage XpmCreateBufferFromImage
++#define XmeXpmCreateBufferFromPixmap XpmCreateBufferFromPixmap
++#define XmeXpmReadFileToBuffer XpmReadFileToBuffer
++#define XmeXpmWriteFileFromBuffer XpmWriteFileFromBuffer
++#define XmeXpmReadFileToData XpmReadFileToData
++#define XmeXpmWriteFileFromData XpmWriteFileFromData
++#define XmeXpmAttributesSize XpmAttributesSize
++#define XmeXpmFreeAttributes XpmFreeAttributes
++#define XmeXpmFreeExtensions XpmFreeExtensions
++#define XmeXpmFreeXpmImage XpmFreeXpmImage
++#define XmeXpmFreeXpmInfo XpmFreeXpmInfo
++#define XmeXpmGetErrorString XpmGetErrorString
++#define XmeXpmLibraryVersion XpmLibraryVersion
++#define XmeXpmReadFileToXpmImage XpmReadFileToXpmImage
++#define XmeXpmWriteFileFromXpmImage XpmWriteFileFromXpmImage
++#define XmeXpmCreatePixmapFromXpmImage XpmCreatePixmapFromXpmImage
++#define XmeXpmCreateImageFromXpmImage XpmCreateImageFromXpmImage
++#define XmeXpmCreateXpmImageFromImage XpmCreateXpmImageFromImage
++#define XmeXpmCreateXpmImageFromPixmap XpmCreateXpmImageFromPixmap
++#define XmeXpmCreateDataFromXpmImage XpmCreateDataFromXpmImage
++#define XmeXpmCreateXpmImageFromData XpmCreateXpmImageFromData
++#define XmeXpmCreateXpmImageFromBuffer XpmCreateXpmImageFromBuffer
++#define XmeXpmCreateBufferFromXpmImage XpmCreateBufferFromXpmImage
++#define XmeXpmFree XpmFree
+ 
+ /* The following is the original xpm.h header file */
+ 
